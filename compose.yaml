@@ -1,0 +1,6 @@
+﻿services:
+  spendo:
+    image: spendo
+    build:
+      context: .
+      dockerfile: Spendo/Dockerfile
