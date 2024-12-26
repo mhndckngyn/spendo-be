@@ -5,6 +5,8 @@ using Spendo.Models;
 
 namespace Spendo.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class IncomeController : ControllerBase
     {
         private readonly string connectionString = "Host=ep-frosty-block-a5git3ix.us-east-2.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=tJKyV3nxzh5I;SSL Mode=Require;Trust Server Certificate=true";

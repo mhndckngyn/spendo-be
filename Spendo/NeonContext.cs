@@ -202,5 +202,17 @@ internal class NeonContext
     ";
         await connection.ExecuteAsync(sql);
     }
-
+    private async Task _initCurrency()
+    {
+        using var connection = CreateConnection();
+        var sql = @"
+    	CREATE TABLE IF NOT EXISTS Currencies (
+    		      ID SERIAL PRIMARY KEY,
+                  Name varchar(50) NOT NULL,
+                  Code varchar(10) NOT NULL,
+                  Sign varchar(10) NOT NULL
+    	);
+    ";
+        await connection.ExecuteAsync(sql);
+    }
 }
