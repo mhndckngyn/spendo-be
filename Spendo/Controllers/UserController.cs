@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using Spendo.Models;
@@ -44,6 +45,11 @@ namespace Spendo.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] User user)
         {
+            if (IsExist(user.Email))
+            {
+                return Conflict();
+            }
+            
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
@@ -105,6 +111,15 @@ namespace Spendo.Controllers
             }
 
             return NoContent(); // Successfully deleted
+        }
+        public bool IsExist(string email)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            string query = "SELECT * FROM users WHERE email = @email";
+            using var command = new NpgsqlCommand(query, connection);
+            command.Parameters.AddWithValue("email", email);
+            return (command.ExecuteScalar() != null);
         }
     }
 }
