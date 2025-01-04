@@ -112,7 +112,7 @@ namespace Spendo.Controllers
 
             return NoContent(); // Successfully deleted
         }
-        public bool IsExist(string email)
+        private bool IsExist(string email)
         {
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
